@@ -21,6 +21,7 @@ library(tidygeocoder)
 library(DBI)
 ```
 
+# function to extract relevant ACS digital equity variables
 
 ```{r}
 acs_vars.broadband <- function(year, geography)
@@ -41,6 +42,7 @@ acs_vars.broadband <- function(year, geography)
 }
 ```
 
+# get digital variables, format data, and subset for NCR
 
 ```{r}
 # county
@@ -125,18 +127,20 @@ acs.broadband.vars.bg.dmv <- rbind(acs.broadband.vars.bg.2019, acs.broadband.var
 acs.broadband.vars.bg.ncr <- acs.broadband.vars.bg.dmv[substr(acs.broadband.vars.bg.dmv$geoid, 1, 5) %in% c("51013", "51059", "51107", "51510", "51600", "51153", "51683", "51685", "51610", "11001", "24031", "24033", "24017", "24021"),]
 ```
 
+# write to database
 
 ```{r}
-con <- get_db_conn(db_pass = "rsu8zvrsu8zv")
-dc_dbWriteTable(con, "dc_digital_communications", "dcmdva_ct_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.ct.dmv)
-dc_dbWriteTable(con, "dc_digital_communications", "ncr_ct_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.ct.ncr)
-dc_dbWriteTable(con, "dc_digital_communications", "dcmdva_tr_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.tr.dmv)
-dc_dbWriteTable(con, "dc_digital_communications", "ncr_tr_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.tr.ncr)
-dc_dbWriteTable(con, "dc_digital_communications", "dcmdva_bg_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.bg.dmv)
-dc_dbWriteTable(con, "dc_digital_communications", "ncr_bg_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.bg.ncr)
-dbDisconnect(con)
+# con <- get_db_conn(db_pass = "rsu8zvrsu8zv")
+# dc_dbWriteTable(con, "dc_digital_communications", "dcmdva_ct_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.ct.dmv)
+# dc_dbWriteTable(con, "dc_digital_communications", "ncr_ct_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.ct.ncr)
+# dc_dbWriteTable(con, "dc_digital_communications", "dcmdva_tr_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.tr.dmv)
+# dc_dbWriteTable(con, "dc_digital_communications", "ncr_tr_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.tr.ncr)
+# dc_dbWriteTable(con, "dc_digital_communications", "dcmdva_bg_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.bg.dmv)
+# dc_dbWriteTable(con, "dc_digital_communications", "ncr_bg_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.bg.ncr)
+# dbDisconnect(con)
 ```
 
+# read in health district identifiers
 
 ```{r}
 acs.broadband.vars.ct <- rbind(acs.broadband.vars.ct.2019, acs.broadband.vars.ct.2018, acs.broadband.vars.ct.2017)
@@ -145,14 +149,16 @@ health_district <- read.csv("/project/biocomplexity/sdad/projects_data/vdh/va_co
 health_district$county_id <- as.character(health_district$county_id)
 
 con <- get_db_conn(db_pass = "rsu8zvrsu8zv")
-health_district_geoids <- st_read(con, query = "SELECT * FROM dc_common.va_hd_sdad_2021_virginia_health_district_geoids")
+health_district_geoids <- st_read(con, query = "SELECT * FROM dc_geographies.va_hd_vdh_2021_health_district_geo_names")
 dbDisconnect(con)
 
 health_district_2 <- left_join(health_district, health_district_geoids, by = c("health_district" = "region_name"))
 ```
 
+# construct health district level data
 
 ```{r}
+# format data
 acs.broadband.vars.hd.va <- merge(health_district_2, acs.broadband.vars.ct, by.x = "county_id", by.y = "GEOID") %>%
   group_by(geoid, health_district, year) %>%
   summarize(num_hh_with_broadband = sum(has_broadband_hhE),
@@ -174,8 +180,9 @@ acs.broadband.vars.hd.va <- merge(health_district_2, acs.broadband.vars.ct, by.x
   rename(region_name = health_district) %>%
   relocate("geoid", "region_type", "region_name", "year", "measure", "value", "measure_type", "measure_units")
 
-con <- get_db_conn(db_pass = "rsu8zvrsu8zv")
-dc_dbWriteTable(con, "dc_digital_communications", "va_hd_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.hd.va)
-dbDisconnect(con)
+# send to db
+# con <- get_db_conn(db_pass = "rsu8zvrsu8zv")
+# dc_dbWriteTable(con, "dc_digital_communications", "va_hd_acs_2017_2019_broadband_withoutint_compdev", acs.broadband.vars.hd.va)
+# dbDisconnect(con)
 ```
 
