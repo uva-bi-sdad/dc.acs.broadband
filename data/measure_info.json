@@ -6,13 +6,14 @@
     "measure": "perc_hh_with_broadband",
     "type": "percent",
     "short_name": "Households with broadband",
-    "long_name": "Percent of households with broadband",
-    "short_description": "Percent of households self-reported to have a broadband internet connection (any type of internet other than a dial-up)",
-    "long_description": "Percent of households self-reported to have a broadband internet connection. Broadband internet is defined as any type of internet other than a dial-up. Based on American Community Survey ACS 2015/2019 5-year estimates.",
-    "statement": "{value} of the households in {features.name} has a broadband connection.",
+    "long_name": "Percentage of households with broadband",
+    "short_description": "Percentage of households self-reported to have a broadband internet connection (any type of internet other than a dial-up)",
+    "long_description": "Percentage of households self-reported to have a broadband internet connection. Broadband internet is defined as any type of internet other than a dial-up. Based on American Community Survey Table B28002 in ACS 2015/2019 5-year estimates.",
+    "statement": "{value} of households in {features.name} have a broadband connection.",
+    "equity_category" : "Availability",
     "sources": [
       {
-        "name": "American Community Survey",
+        "name": "American Community Survey Table B28002",
         "date_accessed": 2021,
         "url": "https://www.census.gov/programs-surveys/acs.html"
       }
@@ -25,13 +26,14 @@
     "measure": "perc_hh_with_cable_fiber_dsl",
     "type": "percent",
     "short_name": "Households with cable, fiber optic, or DSL",
-    "long_name": "Percent of households with a high speed internet service (cable, fiber optic, or DSL)",
-    "short_description": "Percent of households self-reported to have a high speed internet service (cable, fiber optic, or DSL)",
-    "long_description": "Percent of households self-reported to have a high speed internet service. A high speed internet service is defined as a cable, fiber optic, or DSL internet connection. Based on American Community Survey ACS 2015/2019 5-year estimates.",
-    "statement": "{value} of the households in {features.name} has a cable fiber or DSL internet connection.",
+    "long_name": "Percentage of households with a high speed internet service (cable, fiber optic, or DSL)",
+    "short_description": "Percentage of households self-reported to have a high speed internet service (cable, fiber optic, or DSL)",
+    "long_description": "Percentage of households self-reported to have a high speed internet service. A high speed internet service is defined as a cable, fiber optic, or DSL internet connection. Based on American Community Survey Table B28002 in ACS 2015/2019 5-year estimates.",
+    "statement": "{value} of households in {features.name} have a cable, fiber optic, or DSL internet connection.",
+    "equity_category" : "Availability",
     "sources": [
       {
-        "name": "American Community Survey",
+        "name": "American Community Survey Table B28002",
         "date_accessed": 2021,
         "url": "https://www.census.gov/programs-surveys/acs.html"
       }
@@ -44,13 +46,14 @@
     "measure": "perc_hh_without_compdev",
     "type": "percent",
     "short_name": "Households without a computer",
-    "long_name": "Percent of households without a computer",
-    "short_description": "Percent of the households self-reported to not have a computer or device at home",
-    "long_description": "Percent of the households self-reported to not have a computer or device at home. Based on American Community Survey ACS 2015/2019 5-year estimates.",
-    "statement": "{value} of the households in {features.name} have a computer or device.",
+    "long_name": "Percentage of households without a computer",
+    "short_description": "Percentage of households self-reported to not have a computer or device at home",
+    "long_description": "Percentage of the households self-reported to not have a computer or device at home. Based on American Community Survey Table B28002 in ACS 2015/2019 5-year estimates.",
+    "statement": "{value} of households in {features.name} do not have a computer or device.",
+    "equity_category" : "Accessibility",
     "sources": [
       {
-        "name": "American Community Survey",
+        "name": "American Community Survey Table B28002",
         "date_accessed": 2021,
         "url": "https://www.census.gov/programs-surveys/acs.html"
       }
@@ -63,13 +66,14 @@
     "measure": "perc_hh_without_internet",
     "type": "percent",
     "short_name": "Households without internet access",
-    "long_name": "Percent of households without internet access",
-    "short_description": "Percent of households self-reported to not have internet access at home",
-    "long_description": "Percent of households self-reported to not have internet access at home. Based on American Community Survey ACS 2015/2019 5-year estimates.",
-    "statement": "{value} of the households in {features.name} have not internet access.",
+    "long_name": "Percentage of households without internet access",
+    "short_description": "Percentage of households self-reported to not have internet access at home",
+    "long_description": "Percentage of households self-reported to not have internet access at home. Based on American Community Survey Table B28002 in ACS 2015/2019 5-year estimates.",
+    "statement": "{value} of households in {features.name} do not have internet access.",
+    "equity_category" : "Availability",
     "sources": [
       {
-        "name": "American Community Survey",
+        "name": "American Community Survey Table B28002",
         "date_accessed": 2021,
         "url": "https://www.census.gov/programs-surveys/acs.html"
       }
